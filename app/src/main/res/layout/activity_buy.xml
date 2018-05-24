@@ -18,32 +18,28 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/ll_nota"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_nota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_brockerage_note" />
-
                 <EditText
+                    android:id="@+id/et_nota_corretagem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100.00" />
-            </LinearLayout>
+                    android:hint="@string/action_brockerage_note"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_code"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -53,102 +49,85 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_nota">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_code" />
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_nota">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100.00" />
-            </LinearLayout>
+                    android:hint="@string/action_code" />
 
-            <LinearLayout
-                android:id="@+id/ll_date_buy"
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_buy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_code">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_date_buy" />
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_code">
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="100.00" />
-            </LinearLayout>
+                    android:hint="@string/action_date_buy"
+                    />
+            </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_quantity_purchased"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_quantity_purchased"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_date_buy">
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_buy">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_quantity_purchased" />
 
                 <br.com.stv.edittext.EditTextNumber
                     android:id="@+id/edt_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:hint="@string/action_quantity_purchased"
                     app:countDigit="6"
                     app:countPrecision="0" />
-            </LinearLayout>
+            </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_price_per_shere"
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_price_shere"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_quantity_purchased">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_price_per_shere" />
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_quantity_purchased">
 
                 <br.com.stv.edittext.EditTextNumber
                     android:id="@+id/edt_cust"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:hint="@string/action_price_per_shere"
                     app:countDigit="7"
                     app:countPrecision="2" />
 
-            </LinearLayout>
+            </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_proportional_rates"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_proportional_rates"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
@@ -156,21 +135,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_price_per_shere">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/action_proportional_rates" />
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_price_shere">
 
                 <br.com.stv.edittext.EditTextNumber
                     android:id="@+id/edt_rate_costs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:hint="@string/action_proportional_rates"
                     app:countDigit="7"
                     app:countPrecision="2" />
-            </LinearLayout>
+            </android.support.design.widget.TextInputLayout>
 
             <LinearLayout
                 android:id="@+id/ll_operation_value"
@@ -183,7 +157,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_proportional_rates">
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_proportional_rates">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -222,7 +196,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btn_confirm"
                 style="@style/ButtonEnter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -239,7 +213,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/ll_average_value_share" />
 
         </android.support.constraint.ConstraintLayout>
-
 
     </ScrollView>
 
