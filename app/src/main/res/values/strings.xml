@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AppBolsa</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    // Actions (Ações)
+    <string name="action_brockerage_note">Nota de correntagem</string>
+    <string name="action_code">Código da Ação</string>
+    <string name="action_date_buy">Data da compra</string>
+    <string name="action_quantity_purchased">Quantidade comprada</string>
+    <string name="action_price_per_shere">Valor por ação</string>
+    <string name="action_proportional_rates">Taxas e custos proporcionalizadas</string>
+    <string name="operation_value">Valor da operação</string>
+    <string name="action_average_value_share">Valor por ação</string>
+</resources>
