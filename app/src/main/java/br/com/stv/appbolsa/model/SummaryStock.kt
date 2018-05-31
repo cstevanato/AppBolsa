@@ -11,16 +11,16 @@ import java.util.*
  */
 
 @RealmClass
-open class SummaryStock() : RealmObject() , ISummaryStock {
+open class SummaryStock() : RealmObject(), ISummaryStock {
     @PrimaryKey
     override var id: Long = 0
-    override   var stock: Stock? = null
-    override   var amount: Int = 0
-    override   var average: Double = 0.0
-    override   var updateDate: Date = Date()
-    
+    override var stock: Stock? = null
+    override var amount: Int = 0
+    override var average: Double = 0.0
+    override var updateDate: Date = Date()
 
-    constructor( summaryStock:  ISummaryStock) : this() {
+
+    constructor(summaryStock: ISummaryStock) : this() {
         this.amount = summaryStock.amount
         this.average = summaryStock.average
         this.id = summaryStock.id
