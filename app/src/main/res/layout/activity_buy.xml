@@ -52,6 +52,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_nota">
 
                 <EditText
+                    android:id="@+id/et_code_action"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/action_code" />
@@ -71,6 +72,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_code">
 
                 <EditText
+                    android:id="@+id/et_date_buy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/action_date_buy"
@@ -162,7 +164,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/action_date_buy" />
+                    android:text="Valor médio por ação" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -186,7 +188,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/action_average_value_share" />
+                    android:text="Valor Operação" />
 
                 <TextView
                     android:layout_width="match_parent"
