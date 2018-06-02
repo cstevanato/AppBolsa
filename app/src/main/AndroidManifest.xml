@@ -3,6 +3,7 @@
     package="br.com.stv.appbolsa">
 
     <application
+        android:name=".AppBolsaApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+
             android:name=".ui.activity.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
@@ -20,7 +22,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.sell.SellActivity" />
-        <activity android:name=".ui.activity.buy.BuyActivity"></activity>
+        <activity android:name=".ui.activity.buy.BuyActivity"
+            android:windowSoftInputMode="stateVisible">
+
+        </activity>
     </application>
 
 </manifest>

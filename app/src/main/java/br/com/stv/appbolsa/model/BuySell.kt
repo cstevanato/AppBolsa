@@ -6,7 +6,7 @@ import io.realm.annotations.RealmClass
 import java.util.*
 
 @RealmClass
-open class BuySell() : RealmObject() {
+open class BuySell : RealmObject() {
     @PrimaryKey
     var id: Long = 0
     var note: String = ""
@@ -16,6 +16,8 @@ open class BuySell() : RealmObject() {
     var rates: Double = 0.0
     var averagePerStock: Double = 0.0
     var custOperation: Double = 0.0
+    var totalAveragePerStock : Double = 0.0
+    var totalAmountStock: Int = 0
     var buy: Boolean = true
     var updateDate: Date = Date()
 }

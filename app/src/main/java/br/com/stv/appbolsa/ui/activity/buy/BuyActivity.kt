@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import br.com.stv.appbolsa.R
+import br.com.stv.appbolsa.dao.IBuySellStock
 import br.com.stv.appbolsa.dao.ISummaryStock
 import kotlinx.android.synthetic.main.activity_buy.*
 import java.text.SimpleDateFormat
@@ -41,7 +42,7 @@ class BuyActivity : AppCompatActivity(), BuyContract.View {
                     et_nota_corretagem.text.toString(),
                     et_code_action.text.toString(),
                     amount, cust, rate, averagePerStock,
-                    custOperation, date)
+                    custOperation, date, 0.0, 0)
 
             buyPresenter.add(buyData)
         })

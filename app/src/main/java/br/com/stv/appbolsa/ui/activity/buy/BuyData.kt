@@ -11,5 +11,7 @@ data class BuyData(override var id: Long,
                    override var rates: Double,
                    override var averagePerStock: Double,
                    override var custOperation: Double,
-                   override var updateDate: Date) : IBuySellStock {
+                   override var updateDate: Date,
+                   override var totalAveragePerStock: Double,
+                   override var totalAmountStock: Int) : IBuySellStock {
 }

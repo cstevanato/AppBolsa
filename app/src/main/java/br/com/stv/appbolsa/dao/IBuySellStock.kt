@@ -12,5 +12,7 @@ interface IBuySellStock {
     var rates: Double
     var averagePerStock: Double
     var custOperation: Double
+    var totalAveragePerStock: Double
+    var totalAmountStock: Int
     var updateDate: Date
 }
