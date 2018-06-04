@@ -22,10 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.sell.SellActivity" />
-        <activity android:name=".ui.activity.buy.BuyActivity"
-            android:windowSoftInputMode="stateVisible">
-
-        </activity>
+        <activity android:name=".ui.activity.buy.BuyActivity"/>
     </application>
 
 </manifest>
