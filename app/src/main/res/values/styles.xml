@@ -23,4 +23,12 @@
         <item name="android:background">@drawable/bg_button_enter</item>
     </style>
 
+    <style name="ErrorText" parent="TextAppearance.Design.Error">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/colorError</item>
+    </style>
+
+    <style name="HintText" parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 </resources>

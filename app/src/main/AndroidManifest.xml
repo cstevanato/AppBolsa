@@ -22,7 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.sell.SellActivity" />
-        <activity android:name=".ui.activity.buy.BuyActivity"/>
+        <activity android:name=".ui.activity.buy.BuyActivity"
+           />
     </application>
 
 </manifest>

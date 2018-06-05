@@ -36,17 +36,19 @@ class BuyStockDao {
 
             buySellStock.stock = stock
             buySellStock.amount = averageStock.amount
-            buySellStock.cust = averageStock.cust
-            buySellStock.rates = averageStock.rates
-            buySellStock.averagePerStock = averageStock.averagePerStock
-            buySellStock.custOperation = averageStock.custOperation
+            buySellStock.cust = averageStock.cust.toDouble()
+            buySellStock.rates = averageStock.rates.toDouble()
+            buySellStock.averagePerStock = averageStock.averagePerStock.toDouble()
+            buySellStock.custOperation = averageStock.custOperation.toDouble()
             buySellStock.buy = true
             buySellStock.updateDate = averageStock.updateDate
 
 
             val summaryStock = getSummaryStock(realm, stock!!)
-
-            summaryStock.average = ((summaryStock.average * summaryStock.amount) + (averageStock.averagePerStock * averageStock.amount)) / (summaryStock.average + averageStock.amount)
+            
+            summaryStock.average = ((summaryStock.average * summaryStock.amount) +
+                    (buySellStock.averagePerStock * buySellStock.amount)) /
+                    (summaryStock.amount + buySellStock.amount)
             summaryStock.amount += averageStock.amount
             summaryStock.updateDate = averageStock.updateDate
 
@@ -64,7 +66,8 @@ class BuyStockDao {
     }
 
     fun getSummaryStock(realm: Realm, stock: Stock): SummaryStock {
-        var summaryStock = realm.where(SummaryStock::class.java).equalTo("stock.stock", stock.stock).findFirst()
+        var summaryStock = realm.where(SummaryStock::class.java)
+                .equalTo("stock.stock", stock.stock).findFirst()
         if (summaryStock == null) {
             var max= realm.where(SummaryStock::class.java).max("id")
             if(max == null) {

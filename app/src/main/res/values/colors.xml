@@ -11,5 +11,7 @@
 
     <color name="colorOk">#bfed9e</color>
 
+    <color name="colorError">#f43f45</color>
+
 
 </resources>

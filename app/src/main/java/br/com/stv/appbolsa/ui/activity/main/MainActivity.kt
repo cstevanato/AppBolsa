@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     SummaryContract.View {
 
-
     private val summaryPresenter : SummaryContract.Presenter by lazy {
         SummaryPresenter(this, this)
     }
@@ -113,5 +112,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
     //endregion
+
+    override fun printError(message: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 }
