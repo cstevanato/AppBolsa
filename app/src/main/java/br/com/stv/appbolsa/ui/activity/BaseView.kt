@@ -12,11 +12,8 @@ interface BaseView<T> {
         val builder = AlertDialog.Builder(act)
         builder.setMessage(msg)
 
-
-        builder.setMessage("Are you want to set the app background color to RED?")
-
         // Set a positive button and its click listener on alert dialog
-        builder.setPositiveButton("YES"){dialog, which ->
+        builder.setPositiveButton("OK"){dialog, which ->
 
         }
 
@@ -31,11 +28,8 @@ interface BaseView<T> {
         val builder = AlertDialog.Builder(act)
         builder.setMessage(msg)
 
-
-        builder.setMessage("Are you want to set the app background color to RED?")
-
         // Set a positive button and its click listener on alert dialog
-        builder.setPositiveButton("YES"){dialog, which ->
+        builder.setPositiveButton("OK"){dialog, which ->
             callback()
         }
 
@@ -50,11 +44,8 @@ interface BaseView<T> {
         val builder = AlertDialog.Builder(act)
         builder.setMessage(msg)
 
-
-        builder.setMessage("Are you want to set the app background color to RED?")
-
         // Set a positive button and its click listener on alert dialog
-        builder.setPositiveButton("YES"){dialog, which ->
+        builder.setPositiveButton("OK"){dialog, which ->
             callback()
         }
 
