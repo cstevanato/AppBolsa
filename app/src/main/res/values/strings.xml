@@ -17,4 +17,11 @@
     <string name="action_proportional_rates">Taxas e custos proporcionalizadas</string>
     <string name="operation_value">Valor da operação</string>
     <string name="action_average_value_share">Valor por ação</string>
+
+
+
+    // Erros
+    <string name="error_field_required">Campo obrigatório</string>
+
+
 </resources>
