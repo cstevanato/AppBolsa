@@ -5,26 +5,57 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_buy"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Compra" />
-        <item
-            android:id="@+id/nav_sell"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Venda" />
+            android:id="@+id/nav_login"
+            android:icon="@drawable/ic_login_variant_black_48dp"
+            android:title="Logar (feature)" />
     </group>
 
+    <item android:title="Ação">
+        <menu>
+            <item
+                android:id="@+id/nav_buy"
+                android:icon="@drawable/ic_cart_plus_black_48dp"
+                android:title="Compra" />
+            <item
+                android:id="@+id/nav_sell"
+                android:icon="@drawable/ic_cash_multiple_black_48dp"
+                android:title="Venda" />
+            <item
+                android:id="@+id/nav_grouping"
+                android:icon="@drawable/ic_arrow_collapse_all_black_48dp"
+                android:title="Agrupamento (feature)" />
+            <item
+                android:id="@+id/nav_unfolding"
+                android:icon="@drawable/ic_arrow_expand_all_black_48dp"
+                android:title="Desdobramento (feature)" />
+        </menu>
+    </item>
+
+    <item android:title="Relatorio">
+        <menu>
+            <item
+                android:id="@+id/nav_export"
+                android:icon="@drawable/ic_file_export_black_48dp"
+                android:title="Exportar" />
+            <item
+                android:id="@+id/nav_import"
+                android:icon="@drawable/ic_file_import_black_48dp"
+                android:title="Importar (feature)" />
+        </menu>
+    </item>
+
+
     <!--<item android:title="Communicate">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="Share" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Send" />-->
-        <!--</menu>-->
+    <!--<menu>-->
+    <!--<item-->
+    <!--android:id="@+id/nav_share"-->
+    <!--android:icon="@drawable/ic_menu_share"-->
+    <!--android:title="Share" />-->
+    <!--<item-->
+    <!--android:id="@+id/nav_send"-->
+    <!--android:icon="@drawable/ic_menu_send"-->
+    <!--android:title="Send" />-->
+    <!--</menu>-->
     <!--</item>-->
 
 </menu>
