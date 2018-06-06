@@ -3,7 +3,7 @@ package br.com.stv.appbolsa.ui.activity.buy
 import android.content.Context
 import br.com.stv.appbolsa.dao.BuyStockDao
 import br.com.stv.appbolsa.extension.toBigDecimalBrazilianCurrency
-import java.math.BigDecimal
+import br.com.stv.appbolsa.utils.CalculationUtils
 import java.text.SimpleDateFormat
 
 class BuyPresenter(private val context: Context,
@@ -26,11 +26,8 @@ class BuyPresenter(private val context: Context,
     }
 
     private fun calculateStockAverage(buyData: BuyData) {
-        buyData.custOperation = (buyData.cust.multiply(buyData.amount.toBigDecimal())) + buyData.rates
-        if (buyData.amount != 0)
-            buyData.averagePerStock = buyData.custOperation.divide(buyData.amount.toBigDecimal(),3)
-        else
-            buyData.averagePerStock = BigDecimal.ZERO
+        buyData.custOperation = CalculationUtils().custOperation(buyData.cust, buyData.amount,  buyData.rates)
+        buyData.averagePerStock = CalculationUtils().stockAveragePerBuy(buyData.custOperation, buyData.amount)
     }
 
     override fun add(
@@ -51,11 +48,11 @@ class BuyPresenter(private val context: Context,
         error = validadeCustPerStock(buyData, cust, error)
         error = validadeRates(buyData, rates, error)
 
-        calculateStockAverage(buyData)
-
         if (error) return
 
         try {
+            calculateStockAverage(buyData)
+
             BuyStockDao().insert(buyData)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -88,7 +85,7 @@ class BuyPresenter(private val context: Context,
             rError = true
         }
         try {
-            buyData.rates = custPerStock.toBigDecimalBrazilianCurrency()
+            buyData.cust = custPerStock.toBigDecimalBrazilianCurrency()
         } catch (ex: Exception) {
             summaryView.custPerStockRequired()
             rError = true

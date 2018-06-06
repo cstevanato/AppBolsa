@@ -13,7 +13,7 @@ class SummaryPresenter (private val context: Context,
     private val summaryStockList: List<SummaryStock> = summaryStocks
 
     override fun loadSummaries() {
-
+        summaryStocks.clear()
         summaryStocks.addAll(SummaryStockDao().getSummaryStocks()!!)
         summaryView.showTasks(summaryStockList)
 

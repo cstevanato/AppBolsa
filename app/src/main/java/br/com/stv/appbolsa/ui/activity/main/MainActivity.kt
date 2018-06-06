@@ -47,6 +47,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
 
+    }
+
+    override fun onResume() {
+        super.onResume()
         summaryPresenter.loadSummaries()
     }
 

@@ -3,6 +3,7 @@ package br.com.stv.appbolsa.dao
 import br.com.stv.appbolsa.model.BuySell
 import br.com.stv.appbolsa.model.Stock
 import br.com.stv.appbolsa.model.SummaryStock
+import br.com.stv.appbolsa.utils.CalculationUtils
 import io.realm.Realm
 import kotlin.coroutines.experimental.EmptyCoroutineContext
 
@@ -22,7 +23,7 @@ class BuyStockDao {
             if (stock == null) {
                 var max = realm.where(BuySell::class.java).max("id")
                 if(max == null) {
-                    max = 0
+                    max = 1
                 }
                 stock = realm.createObject(Stock::class.java, max!!.toLong() + 1)
                 stock.stock = averageStock.stock
@@ -30,7 +31,7 @@ class BuyStockDao {
 
             var max = realm.where(BuySell::class.java).max("id")
             if(max == null) {
-                max = 0
+                max = 1
             }
             val buySellStock = realm.createObject(BuySell::class.java, max!!.toLong() + 1)
 
@@ -45,10 +46,13 @@ class BuyStockDao {
 
 
             val summaryStock = getSummaryStock(realm, stock!!)
-            
-            summaryStock.average = ((summaryStock.average * summaryStock.amount) +
-                    (buySellStock.averagePerStock * buySellStock.amount)) /
-                    (summaryStock.amount + buySellStock.amount)
+
+            summaryStock.average = CalculationUtils().stockAveragePerTotal(
+                    summaryStock.average.toBigDecimal(),
+                    summaryStock.amount,
+                    averageStock.averagePerStock,
+                    averageStock.amount).toDouble()
+
             summaryStock.amount += averageStock.amount
             summaryStock.updateDate = averageStock.updateDate
 
@@ -71,7 +75,7 @@ class BuyStockDao {
         if (summaryStock == null) {
             var max= realm.where(SummaryStock::class.java).max("id")
             if(max == null) {
-                max = 0
+                max = 1
             }
             summaryStock = realm.createObject(SummaryStock::class.java, max!!.toLong() + 1)
             summaryStock!!.stock = stock
