@@ -14,6 +14,4 @@ data class BuyData(override var id: Long = 0,
                    override var custOperation: BigDecimal = BigDecimal.ZERO,
                    override var updateDate: Date = Date(),
                    override var totalAveragePerStock: BigDecimal = BigDecimal.ZERO,
-                   override var totalAmountStock: Int = 0) : IBuySellStock {
-
-}
+                   override var totalAmountStock: Int = 0) : IBuySellStock

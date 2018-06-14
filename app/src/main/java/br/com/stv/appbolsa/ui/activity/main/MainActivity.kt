@@ -18,15 +18,16 @@ import br.com.stv.appbolsa.dao.ISummaryStock
 import br.com.stv.appbolsa.model.SummaryStock
 import br.com.stv.appbolsa.ui.SeparatorDecoration
 import br.com.stv.appbolsa.ui.activity.buy.BuyActivity
+import br.com.stv.appbolsa.ui.activity.sell.SellActivity
 import br.com.stv.appbolsa.ui.adapter.SummaryAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
-    SummaryContract.View {
+        SummaryContract.View {
 
-    private val summaryPresenter : SummaryContract.Presenter by lazy {
+    private val summaryPresenter: SummaryContract.Presenter by lazy {
         SummaryPresenter(this, this)
     }
 
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        this.title = getString(R.string.text_portfolio)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -85,10 +88,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, BuyActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_sell-> {
-
+            R.id.nav_sell -> {
+                val intent = Intent(this, SellActivity::class.java)
+                startActivity(intent)
             }
-
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -98,7 +101,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     //region SummaryContract.View
     private var longClickSelect = -1
-    override fun showTasks(summaryList: List<ISummaryStock>) {
+
+    override fun showSummaries(summaryList: List<ISummaryStock>) {
         rv_summary.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         val decoration = SeparatorDecoration(this)
         rv_summary.addItemDecoration(decoration)
@@ -107,13 +111,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             this.longClickSelect = longClickSelect
         }
 
-        rv_summary.setOnCreateContextMenuListener { menu: ContextMenu, v : View?, menuInfo: ContextMenu.ContextMenuInfo? ->
+        rv_summary.setOnCreateContextMenuListener { menu: ContextMenu, v: View?, menuInfo: ContextMenu.ContextMenuInfo? ->
             menu.add(Menu.NONE, 1, Menu.NONE, "Executar")
         }
-    }
 
-    override fun notifyReceivedTasks() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        summaryList?.let {
+            if (it.size > 0) tv_message.visibility = View.GONE
+        }
     }
     //endregion
 

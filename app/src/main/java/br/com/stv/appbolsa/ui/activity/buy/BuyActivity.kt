@@ -24,6 +24,8 @@ class BuyActivity : AppCompatActivity(), BuyContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buy)
+        
+        this.title = getString(R.string.title_buy)
 
         configButtonConfirm()
 
@@ -44,7 +46,7 @@ class BuyActivity : AppCompatActivity(), BuyContract.View {
     //region Config Components
 
     private fun configButtonConfirm() {
-        btn_confirm.setOnClickListener({
+        btn_confirm.setOnClickListener {
             Toast.makeText(this, "You clicked me.", Toast.LENGTH_SHORT).show()
 
 
@@ -59,7 +61,7 @@ class BuyActivity : AppCompatActivity(), BuyContract.View {
             this.showSucessAlert(this, "Inclido com sucesso.", {
                 this.finish()
             })
-        })
+        }
     }
 
     private fun configNote() {
