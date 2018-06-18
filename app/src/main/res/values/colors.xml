@@ -2,17 +2,22 @@
 <resources>
     <color name="colorPrimary">#9E9E9E</color>
     <color name="colorPrimaryDark">#616161</color>
-    <color name="colorPrimaryLight">#9a9a9e</color>
+
+    <color name="colorPrimaryLight">#EFE9E5</color>
+
     <color name="colorAccent">#607D8B</color>
+
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
+    <color name="colorWhite">#ffffff</color>
+
     <color name="colorIcons">#212121</color>
     <color name="colorDivider">#000000</color>
 
     <color name="colorDividerTitle">#000000</color>
     <color name="colorDividerLine">#4d4b4b</color>
 
-    <color name="colorCardUp">#d6e1e3ed</color>
+    <color name="colorCardUp">#ffffff</color>
     <color name="colorOk">#bfed9e</color>
     <color name="colorError">#f96368</color>
 

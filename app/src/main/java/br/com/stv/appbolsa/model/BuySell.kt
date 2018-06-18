@@ -18,6 +18,9 @@ open class BuySell : RealmObject() {
     var custOperation: Double = 0.0
     var totalAveragePerStock : Double = 0.0
     var totalAmountStock: Int = 0
-    var buy: Boolean = true
+    /**
+     * Buy { Compra = 0, Venda = 1, Agrupamento = 2, Desdobramento = 3 }
+     */
+    var typeAction: Int = 0
     var updateDate: Date = Date()
 }

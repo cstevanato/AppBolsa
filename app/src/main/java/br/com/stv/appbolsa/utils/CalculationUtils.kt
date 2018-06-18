@@ -30,15 +30,4 @@ class CalculationUtils {
         }
     }
 
-    /**
-     * Calculo média total de venda
-     */
-    fun stockAverageSellTotal(summaryStockAverage: BigDecimal, summaryAmount: Int, sellStockAmount: Int): BigDecimal {
-        val totalAmount = summaryAmount - sellStockAmount
-       return if (totalAmount == 0) {
-            BigDecimal.ZERO
-        } else {
-            summaryStockAverage.multiply(totalAmount.toBigDecimal())
-        }
-    }
 }

@@ -26,7 +26,7 @@
     <string name="error_field_required">Campo obrigatório</string>
 
     // Portfólio
-    <string name="text_no_exist_portfolio">Ainda não tem portfólio para\n mostrar, faça um lançamento de compra,\,venda ou varlor médio.</string>
+    <string name="text_no_exist_portfolio">Ainda não tem portfólio,\nfaça um lançamento de compra, venda\nou varlor médio.</string>
     <string name="text_portfolio">Portfólio</string>
 
 

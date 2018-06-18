@@ -1,7 +1,7 @@
 package br.com.stv.appbolsa.ui.activity.sell
 
 import android.content.Context
-import br.com.stv.appbolsa.dao.BuyStockDao
+import br.com.stv.appbolsa.dao.BuySellStockDao
 import br.com.stv.appbolsa.extension.toBigDecimalBrazilianCurrency
 import br.com.stv.appbolsa.ui.activity.buy.BuyData
 import br.com.stv.appbolsa.utils.CalculationUtils
@@ -34,7 +34,7 @@ class SellPresenter(private val context: Context,
         try {
            calculateStockAverage(buyData)
 
-           BuyStockDao().subtract(buyData)
+           BuySellStockDao().subtract(buyData)
         } catch (e: Exception) {
             e.printStackTrace()
             sellView.printError(e.message!!)
@@ -60,7 +60,7 @@ class SellPresenter(private val context: Context,
     }
 
     override fun loadStocksForSales() {
-       sellView.loadStocksForSales(BuyStockDao().getStocksForSales())
+       sellView.loadStocksForSales(BuySellStockDao().getStocksForSales())
     }
 
     override fun start() {
