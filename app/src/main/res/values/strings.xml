@@ -7,21 +7,27 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    //Title
+    <string name="title_buy">Compra</string>
+    <string name="title_sell">Venda</string>
+
 
     // Actions (Ações)
     <string name="action_brockerage_note">Nota de correntagem</string>
     <string name="action_code">Código da Ação</string>
-    <string name="action_date_buy">Data da compra</string>
+    <string name="action_date_buy">Data (dd/mm/aaaa)</string>
     <string name="action_quantity_purchased">Quantidade comprada</string>
     <string name="action_price_per_shere">Valor por ação</string>
     <string name="action_proportional_rates">Taxas e custos proporcionalizadas</string>
     <string name="operation_value">Valor da operação</string>
     <string name="action_average_value_share">Valor por ação</string>
 
-
-
     // Erros
     <string name="error_field_required">Campo obrigatório</string>
+
+    // Portfólio
+    <string name="text_no_exist_portfolio">Ainda não tem portfólio,\nfaça um lançamento de compra, venda\nou varlor médio.</string>
+    <string name="text_portfolio">Portfólio</string>
 
 
 </resources>

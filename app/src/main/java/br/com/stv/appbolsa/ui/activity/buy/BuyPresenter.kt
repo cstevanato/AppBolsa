@@ -1,7 +1,7 @@
 package br.com.stv.appbolsa.ui.activity.buy
 
 import android.content.Context
-import br.com.stv.appbolsa.dao.BuyStockDao
+import br.com.stv.appbolsa.dao.BuySellStockDao
 import br.com.stv.appbolsa.extension.toBigDecimalBrazilianCurrency
 import br.com.stv.appbolsa.utils.CalculationUtils
 import java.text.SimpleDateFormat
@@ -9,7 +9,9 @@ import java.text.SimpleDateFormat
 class BuyPresenter(private val context: Context,
                    private val summaryView: BuyContract.View) : BuyContract.Presenter {
 
-    override fun calculateStockAverage(amount: String, cust: String, rates: String) {
+    override fun calculateStockAverage(amount: String,
+                                       cust: String,
+                                       rates: String) {
         synchronized(this) {
             val buyData = BuyData()
 
@@ -27,7 +29,7 @@ class BuyPresenter(private val context: Context,
 
     private fun calculateStockAverage(buyData: BuyData) {
         buyData.custOperation = CalculationUtils().custOperation(buyData.cust, buyData.amount,  buyData.rates)
-        buyData.averagePerStock = CalculationUtils().stockAveragePerBuy(buyData.custOperation, buyData.amount)
+        buyData.averagePerStock = CalculationUtils().stockAverage(buyData.custOperation, buyData.amount)
     }
 
     override fun add(
@@ -53,7 +55,7 @@ class BuyPresenter(private val context: Context,
         try {
             calculateStockAverage(buyData)
 
-            BuyStockDao().insert(buyData)
+            BuySellStockDao().insert(buyData)
         } catch (e: Exception) {
             e.printStackTrace()
             summaryView.printError(e.message!!)

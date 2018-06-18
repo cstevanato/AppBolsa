@@ -12,7 +12,7 @@ class AppBolsaApplication : Application() {
 
         val config = RealmConfiguration.Builder()
                 .name("stock.realm")
-                .schemaVersion(1)
+                .schemaVersion(2)
                 .build()
         Realm.setDefaultConfiguration(config)
     }

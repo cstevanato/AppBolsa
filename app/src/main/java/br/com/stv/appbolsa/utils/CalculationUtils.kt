@@ -8,22 +8,25 @@ class CalculationUtils {
             cust.multiply(amount.toBigDecimal()) + rates
 
     /**
-     * Média das ações por compra
+     * Calculo média das ação (compra/venda)
      */
-    fun stockAveragePerBuy(custOperation: BigDecimal, amount: Int): BigDecimal =
+    fun stockAverage(custOperation: BigDecimal, amount: Int): BigDecimal =
             if (amount != 0) custOperation.divide(amount.toBigDecimal(), 3)
             else BigDecimal.ZERO
 
-    fun stockAveragePerTotal(summaryStockAverage: BigDecimal, summaryAmount: Int,
-                             buyStockAvarege: BigDecimal, buyStockAmount: Int) : BigDecimal {
+    /**
+     * Calculo média total de compra
+     */
+    fun stockAverageBuyTotal(summaryStockAverage: BigDecimal, summaryAmount: Int,
+                             buyStockAvarege: BigDecimal, buyStockAmount: Int): BigDecimal {
         val totalAmount = summaryAmount + buyStockAmount
-        if (totalAmount == 0) {
-            return BigDecimal.ZERO
+        return if (totalAmount == 0) {
+            BigDecimal.ZERO
         } else {
-           return  summaryStockAverage
-                   .multiply(summaryAmount.toBigDecimal())
-                   .plus(buyStockAvarege.multiply(buyStockAmount.toBigDecimal()))
-                   .divide(totalAmount.toBigDecimal(), 3)
+            summaryStockAverage
+                    .multiply(summaryAmount.toBigDecimal())
+                    .plus(buyStockAvarege.multiply(buyStockAmount.toBigDecimal()))
+                    .divide(totalAmount.toBigDecimal(), 3)
         }
     }
 

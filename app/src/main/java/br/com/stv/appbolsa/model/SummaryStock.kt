@@ -27,4 +27,8 @@ open class SummaryStock() : RealmObject(), ISummaryStock {
         this.stock = summaryStock.stock
         this.updateDate = summaryStock.updateDate
     }
+
+    override fun toString(): String {
+        return this.stock?.stock!!
+    }
 }
