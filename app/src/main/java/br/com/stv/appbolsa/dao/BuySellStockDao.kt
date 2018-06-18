@@ -16,7 +16,6 @@ class BuySellStockDao {
         return max.toLong() + 1
     }
 
-
     fun insert(averageStock: IBuySellStock) {
 
         val realm = Realm.getDefaultInstance()
@@ -54,55 +53,6 @@ class BuySellStockDao {
         }
     }
 
-    private fun createStock(realm: Realm, averageStock: IBuySellStock): Stock {
-        var stock = StockDao().create(realm)
-        stock.stock = averageStock.stock
-        return stock
-    }
-
-    /**
-     * Calcula a média de compra
-     */
-    private fun calcAverageBuyStock(realm: Realm, stock: Stock, averageStock: IBuySellStock): SummaryStock {
-        val summaryStock = getSummaryStock(realm, stock)
-
-        summaryStock.average = CalculationUtils().stockAverageBuyTotal(
-                summaryStock.average.toBigDecimal(),
-                summaryStock.amount,
-                averageStock.averagePerStock,
-                averageStock.amount).toDouble()
-
-        summaryStock.amount += averageStock.amount
-        summaryStock.updateDate = averageStock.updateDate
-
-        return summaryStock
-    }
-
-
-    fun getSummaryStock(realm: Realm, stock: Stock): SummaryStock {
-
-        var summaryStock = SummaryStockDao()
-                .getSummaryStockByStock(realm, stock.stock!!)
-
-
-        if (summaryStock == null) {
-            val summaryStockId = SummaryStockDao().next(realm)
-            summaryStock = realm.createObject(SummaryStock::class.java, summaryStockId)
-            summaryStock!!.stock = stock
-        }
-        return summaryStock
-
-    }
-
-    fun getStocksForSales(): List<SummaryStock>? {
-        val realm = Realm.getDefaultInstance()
-
-        val results = realm.where(SummaryStock::class.java)
-                .greaterThan("amount", 0).findAll()
-        return realm.copyFromRealm(results)
-
-    }
-
     fun subtract(averageStock: IBuySellStock) {
         val realm = Realm.getDefaultInstance()
         var stock = StockDao().getStock(realm, averageStock.stock)
@@ -131,6 +81,53 @@ class BuySellStockDao {
         } finally {
             realm.close()
         }
+    }
+
+    fun getSummaryStock(realm: Realm, stock: Stock): SummaryStock {
+
+        var summaryStock = SummaryStockDao()
+                .getSummaryStockByStock(realm, stock.stock!!)
+
+        if (summaryStock == null) {
+            val summaryStockId = SummaryStockDao().next(realm)
+            summaryStock = realm.createObject(SummaryStock::class.java, summaryStockId)
+            summaryStock!!.stock = stock
+        }
+        return summaryStock
+
+    }
+
+    fun getStocksForSales(): List<SummaryStock>? {
+        val realm = Realm.getDefaultInstance()
+
+        val results = realm.where(SummaryStock::class.java)
+                .greaterThan("amount", 0).findAll()
+        return realm.copyFromRealm(results)
+
+    }
+
+    private fun createStock(realm: Realm, averageStock: IBuySellStock): Stock {
+        var stock = StockDao().create(realm)
+        stock.stock = averageStock.stock
+        return stock
+    }
+
+    /**
+     * Calcula a média de compra
+     */
+    private fun calcAverageBuyStock(realm: Realm, stock: Stock, averageStock: IBuySellStock): SummaryStock {
+        val summaryStock = getSummaryStock(realm, stock)
+
+        summaryStock.average = CalculationUtils().stockAverageBuyTotal(
+                summaryStock.average.toBigDecimal(),
+                summaryStock.amount,
+                averageStock.averagePerStock,
+                averageStock.amount).toDouble()
+
+        summaryStock.amount += averageStock.amount
+        summaryStock.updateDate = averageStock.updateDate
+
+        return summaryStock
     }
 
     /**
