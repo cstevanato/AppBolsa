@@ -7,9 +7,13 @@ import io.realm.Realm
 // https://academy.realm.io/posts/android-architecture-components-and-realm/
 // https://github.com/googlecodelabs/android-persistence
 class AverageStockDao {
+
+    private val realm: Realm by lazy {
+        Realm.getDefaultInstance()
+    }
+
     fun insert(averageStock: ISummaryStock) {
 
-        val realm = Realm.getDefaultInstance()
         val stock = realm.where(Stock::class.java).equalTo("id", averageStock.id).findFirst()
         val averageStock =  SummaryStock(averageStock)
 

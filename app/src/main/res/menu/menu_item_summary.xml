@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_lists"
+        android:title="@string/menu_title_detalhar"
+        android:icon="@drawable/ic_format_list_bulleted_black_18dp" />
+</menu>

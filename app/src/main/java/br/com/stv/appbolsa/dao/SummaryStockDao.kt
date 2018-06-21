@@ -6,18 +6,21 @@ import io.realm.RealmResults
 
 class SummaryStockDao {
 
-    fun next(realm: Realm): Long {
+    private val realm: Realm by lazy {
+        Realm.getDefaultInstance()
+    }
+
+    fun next(): Long {
         var max = realm.where(SummaryStock::class.java).max("id")
         if (max == null) max = 1
         return max.toLong() + 1
     }
 
-    fun getSummaryStocks(): RealmResults<SummaryStock>? {
-        val realm = Realm.getDefaultInstance()
-        return realm.where(SummaryStock::class.java).findAll()
+    fun getSummaryStocks(): List<SummaryStock>? {
+        return realm.copyFromRealm(realm.where(SummaryStock::class.java).findAll())
     }
 
-    fun getSummaryStockByStock(realm: Realm, stock: String): SummaryStock? {
+    fun getSummaryStockByStock(stock: String): SummaryStock? {
         return realm.where(SummaryStock::class.java)
                 .equalTo("stock.stock", stock).findFirst()
     }

@@ -13,16 +13,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import br.com.stv.appbolsa.R
 import br.com.stv.appbolsa.dao.ISummaryStock
-import br.com.stv.appbolsa.model.SummaryStock
 import br.com.stv.appbolsa.ui.SeparatorDecoration
 import br.com.stv.appbolsa.ui.activity.buy.BuyActivity
+import br.com.stv.appbolsa.ui.activity.buySellOperations.BuySellOperationsActivity
 import br.com.stv.appbolsa.ui.activity.sell.SellActivity
 import br.com.stv.appbolsa.ui.adapter.SummaryAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
         SummaryContract.View {
@@ -100,25 +102,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     //region SummaryContract.View
-    private var longClickSelect = -1
 
     override fun showSummaries(summaryList: List<ISummaryStock>) {
         rv_summary.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
         val decoration = SeparatorDecoration(this)
         rv_summary.addItemDecoration(decoration)
 
-        rv_summary.adapter = SummaryAdapter(summaryList) { longClickSelect ->
-            this.longClickSelect = longClickSelect
+        rv_summary.adapter = SummaryAdapter(this, summaryList)
+        { summaryStock ->
+            Toast.makeText(this@MainActivity, summaryStock.stock.toString(), Toast.LENGTH_SHORT).show();
+
+            val intent = Intent(this, BuySellOperationsActivity::class.java)
+            intent.putExtra(BuySellOperationsActivity.INTENT_STOCK, summaryStock.stock!!.stock)
+
+            startActivityForResult(intent, 12345)
         }
 
         rv_summary.setOnCreateContextMenuListener { menu: ContextMenu, v: View?, menuInfo: ContextMenu.ContextMenuInfo? ->
-            menu.add(Menu.NONE, 1, Menu.NONE, "Executar")
+            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.title_events_list))
         }
 
         summaryList?.let {
             if (it.size > 0) tv_message.visibility = View.GONE
         }
     }
+
     //endregion
 
     override fun printError(message: String) {

@@ -7,10 +7,16 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    //Menu
+    <string name="menu_title_detalhar">Detalhar</string>
+    <string name="menu_title_delete">Excluir</string>
+
     //Title
     <string name="title_buy">Compra</string>
     <string name="title_sell">Venda</string>
 
+    //Main
+    <string name="title_events_list">Listar Eventos</string>
 
     // Actions (Ações)
     <string name="action_brockerage_note">Nota de correntagem</string>
@@ -28,6 +34,9 @@
     // Portfólio
     <string name="text_no_exist_portfolio">Ainda não tem portfólio,\nfaça um lançamento de compra, venda\nou varlor médio.</string>
     <string name="text_portfolio">Portfólio</string>
+
+    // Buy/Sell/Operations (bso)
+    <string name="bso_title">Eventos Compra/Venda</string>
 
 
 </resources>

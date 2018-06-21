@@ -12,5 +12,5 @@ fun BigDecimal.formatForBrazilianCurrency(): String {
 }
 
 fun String.toBigDecimalBrazilianCurrency() : BigDecimal {
-    return this.replace(".", "").replace(",", ".").toBigDecimal()
+    return this.replace(",", ".").toBigDecimal()
 }
