@@ -45,6 +45,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .setAction("Action", null).show()
         }
 
+        rv_summary.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+        val decoration = SeparatorDecoration(this)
+        rv_summary.addItemDecoration(decoration)
+
+
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
@@ -104,9 +109,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //region SummaryContract.View
 
     override fun showSummaries(summaryList: List<ISummaryStock>) {
-        rv_summary.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-        val decoration = SeparatorDecoration(this)
-        rv_summary.addItemDecoration(decoration)
+
+
 
         rv_summary.adapter = SummaryAdapter(this, summaryList)
         { summaryStock ->

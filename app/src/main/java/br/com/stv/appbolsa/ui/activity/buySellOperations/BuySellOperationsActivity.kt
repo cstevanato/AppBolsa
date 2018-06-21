@@ -1,12 +1,8 @@
 package br.com.stv.appbolsa.ui.activity.buySellOperations
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.ContextMenu
-import android.view.Menu
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import br.com.stv.appbolsa.R
@@ -14,9 +10,7 @@ import br.com.stv.appbolsa.extension.formatForBrazilianCurrency
 import br.com.stv.appbolsa.model.BuySell
 import br.com.stv.appbolsa.model.SummaryStock
 import br.com.stv.appbolsa.ui.SeparatorDecoration
-import br.com.stv.appbolsa.ui.adapter.SummaryAdapter
 import kotlinx.android.synthetic.main.activity_buy_sell_operations.*
-import kotlinx.android.synthetic.main.content_main.*
 
 class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract.View {
 
@@ -33,7 +27,7 @@ class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buy_sell_operations)
 
-        title = getString(R.string.bso_title)
+        configActionBar()
 
         val stotck = intent.getStringExtra(INTENT_STOCK)
                 ?: throw IllegalStateException("field $INTENT_STOCK missing in Intent")
@@ -42,6 +36,16 @@ class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract
         bsoPresenter.getBuySellList(stotck)
     }
 
+    private fun configActionBar() {
+        title = getString(R.string.menu_title_detalhar)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.subtitle = getString(R.string.bso_subtitle)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        this.finish()
+        return true
+    }
 
     //region BuySellOperationsContract.View
 

@@ -24,8 +24,8 @@ class BuyActivity : AppCompatActivity(), BuyContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buy)
-        
-        this.title = getString(R.string.title_buy)
+
+        configActionBar()
 
         configButtonConfirm()
 
@@ -42,6 +42,18 @@ class BuyActivity : AppCompatActivity(), BuyContract.View {
         configRates()
 
     }
+
+    private fun configActionBar() {
+        title = getString(R.string.title)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.subtitle = getString(R.string.buy_subtitle)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        this.finish()
+        return true
+    }
+
 
     //region Config Components
 

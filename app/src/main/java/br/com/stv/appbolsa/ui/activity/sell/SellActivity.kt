@@ -29,7 +29,7 @@ class SellActivity : AppCompatActivity(), SellContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sell)
 
-        this.title = getString(R.string.title_sell)
+        configActionBar()
 
         configButtonConfirm()
 
@@ -44,6 +44,17 @@ class SellActivity : AppCompatActivity(), SellContract.View {
         configCustPerStock()
 
         configRates()
+    }
+
+    private fun configActionBar() {
+        title = getString(R.string.title)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
+        getSupportActionBar()?.subtitle = getString(R.string.sell_subtitle)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        this.finish()
+        return true
     }
 
     //region Config Components
