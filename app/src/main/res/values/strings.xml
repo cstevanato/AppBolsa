@@ -36,6 +36,7 @@
 
     // Buy/Sell/OperationsActivity(bso)
     <string name="bso_subtitle">Compra/Venda</string>
+    <string name="bso_msn_delete_more_stock">Confirma "Exclusão"?\nCuidado também serão excluídos todos os registros de %s, incluídos posteriormente a esse.</string>
 
     // BuyActivity
     <string name="buy_subtitle">Compra</string>

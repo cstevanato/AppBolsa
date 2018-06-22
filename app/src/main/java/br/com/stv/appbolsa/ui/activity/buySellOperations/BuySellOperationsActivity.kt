@@ -80,11 +80,19 @@ class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract
     }
 
     override fun questionDeleteStockGreaterOne(amountDelete: Int, idStock: Long, stock: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.showQuestion(this, getString(R.string.bso_msn_delete_more_stock, "xxxxx"),
+                {
+                    Toast.makeText(this@BuySellOperationsActivity, "Apagando Registro",
+                            Toast.LENGTH_LONG)
+                } ,
+                {
+                    Toast.makeText(this@BuySellOperationsActivity, "Recusando Registro",
+                            Toast.LENGTH_LONG)
+                })
     }
 
     override fun questionDeleteStockEqualOne(idStock: Long, stock: String?) {
-        this.showQuestion(this, "Inclido com sucesso.",
+        this.showQuestion(this, "Confirma \"Exclusão\"?",
                 {
                     Toast.makeText(this@BuySellOperationsActivity, "Apagando Registro",
                             Toast.LENGTH_LONG)

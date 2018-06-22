@@ -19,7 +19,7 @@ class BuySellOperationsPresenter(private val context: Context,
 
         val amountDelete: Int = buySellStockDao.amountDeleted(idStock, stock)
 
-        if (amountDelete > 1) {
+        if (amountDelete == 1) {
             // erase records greater than 1
             bsoView.questionDeleteStockGreaterOne(amountDelete, idStock, stock)
         } else {

@@ -1,23 +1,25 @@
 package br.com.stv.appbolsa.ui.activity.sell
 
+import android.app.DatePickerDialog
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Adapter
-import android.widget.AdapterView
-import android.widget.Toast
+import android.widget.*
 import br.com.stv.appbolsa.R
 import br.com.stv.appbolsa.extension.formatForBrazilianCurrency
+import br.com.stv.appbolsa.extension.toSimpleString
 import br.com.stv.appbolsa.model.SummaryStock
 import br.com.stv.appbolsa.ui.activity.buy.BuyData
 import kotlinx.android.synthetic.main.activity_sell.*
 import android.widget.ArrayAdapter
+import br.com.stv.appbolsa.utils.DatePickerFragmentUtils
+import java.util.*
 
 
-class SellActivity : AppCompatActivity(), SellContract.View {
+class SellActivity : AppCompatActivity(), SellContract.View, DatePickerDialog.OnDateSetListener {
 
     private lateinit var stockItemSelect: String
 
@@ -61,9 +63,6 @@ class SellActivity : AppCompatActivity(), SellContract.View {
 
     private fun configButtonConfirm() {
         btn_confirm.setOnClickListener {
-            Toast.makeText(this, "You clicked me.", Toast.LENGTH_SHORT).show()
-
-
             sellPresenter.subtract(
                     et_nota.text.toString(),
                     stockItemSelect,
@@ -96,16 +95,20 @@ class SellActivity : AppCompatActivity(), SellContract.View {
                 stockItemSelect = parent.getItemAtPosition(pos).toString()
             }
 
-            override fun onNothingSelected(parent: AdapterView<out Adapter>?) {
-
-            }
+            override fun onNothingSelected(parent: AdapterView<out Adapter>?) {}
 
         }
     }
 
     private fun configDateBuy() {
+        et_date_buy.keyListener = null
+        et_date_buy.setOnClickListener {
+            DatePickerFragmentUtils().show(supportFragmentManager, "et_date_buy")
+        }
+
         et_date_buy.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
+                DatePickerFragmentUtils().show(supportFragmentManager, "et_date_buy")
                 input_layout_date_buy.error = null
                 input_layout_date_buy.isErrorEnabled = false
             }
@@ -177,30 +180,28 @@ class SellActivity : AppCompatActivity(), SellContract.View {
     //region BuyContract.View
 
     override fun noteRequired() {
-        input_layout_nota.setError(getString(R.string.error_field_required))
+        input_layout_nota.error = getString(R.string.error_field_required)
     }
 
-    override fun stockRequired() {
-
-    }
+    override fun stockRequired() {}
 
     override fun dateBuyRequired() {
-        input_layout_date_buy.setError(getString(R.string.error_field_required))
+        input_layout_date_buy.error = getString(R.string.error_field_required)
 
     }
 
     override fun amountRequired() {
-        input_layout_amount.setError(getString(R.string.error_field_required))
+        input_layout_amount.error = getString(R.string.error_field_required)
 
     }
 
     override fun ratesRequired() {
-        input_layout_rates.setError(getString(R.string.error_field_required))
+        input_layout_rates.error = getString(R.string.error_field_required)
 
     }
 
     override fun custPerStockRequired() {
-        input_layout_price_stock.setError(getString(R.string.error_field_required))
+        input_layout_price_stock.error = getString(R.string.error_field_required)
     }
 
     override fun stockAverage(buyData: BuyData) {
@@ -235,5 +236,13 @@ class SellActivity : AppCompatActivity(), SellContract.View {
         sellPresenter.calculateStockAverage(edt_amount.text.toString(), edt_cust.text.toString(), edt_rates.text.toString())
     }
 
+    //region DatePickerDialog.OnDateSetListener
+
+    override fun onDateSet(datePicker: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val cal = GregorianCalendar(year, month, dayOfMonth)
+        et_date_buy.setText(cal.time.toSimpleString())
+    }
+
+    //endregion
 
 }
