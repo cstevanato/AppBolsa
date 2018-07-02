@@ -13,6 +13,10 @@
     <item android:title="Ação">
         <menu>
             <item
+                android:id="@+id/nav_average"
+                android:icon="@drawable/ic_basket_black_48dp"
+                android:title="Incluir Média" />
+            <item
                 android:id="@+id/nav_buy"
                 android:icon="@drawable/ic_cart_plus_black_48dp"
                 android:title="Compra" />
@@ -31,16 +35,16 @@
         </menu>
     </item>
 
-    <item android:title="Relatorio">
+    <item android:title="Ferramentas">
         <menu>
             <item
                 android:id="@+id/nav_export"
                 android:icon="@drawable/ic_file_export_black_48dp"
-                android:title="Exportar" />
+                android:title="Backup" />
             <item
                 android:id="@+id/nav_import"
                 android:icon="@drawable/ic_file_import_black_48dp"
-                android:title="Importar (feature)" />
+                android:title="Restaurar (feature)" />
         </menu>
     </item>
 

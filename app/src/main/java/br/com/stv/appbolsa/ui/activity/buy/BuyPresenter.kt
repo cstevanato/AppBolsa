@@ -4,6 +4,7 @@ import android.content.Context
 import br.com.stv.appbolsa.dao.BuySellStockDao
 import br.com.stv.appbolsa.extension.toBigDecimalBrazilianCurrency
 import br.com.stv.appbolsa.utils.CalculationUtils
+import com.crashlytics.android.Crashlytics
 import java.text.SimpleDateFormat
 
 class BuyPresenter(private val context: Context,
@@ -29,7 +30,7 @@ class BuyPresenter(private val context: Context,
 
     private fun calculateStockAverage(buyData: BuyData) {
         buyData.custOperation = CalculationUtils().custOperation(buyData.cust, buyData.amount,  buyData.rates)
-        buyData.averagePerStock = CalculationUtils().stockAverage(buyData.custOperation, buyData.amount)
+        buyData.avarageOperation = CalculationUtils().stockAverage(buyData.custOperation, buyData.amount)
     }
 
     override fun add(
@@ -56,7 +57,10 @@ class BuyPresenter(private val context: Context,
             calculateStockAverage(buyData)
 
             BuySellStockDao().insert(buyData)
+
+            summaryView.buyInserted(buyData.stock)
         } catch (e: Exception) {
+            Crashlytics.logException(e)
             e.printStackTrace()
             summaryView.printError(e.message!!)
         }

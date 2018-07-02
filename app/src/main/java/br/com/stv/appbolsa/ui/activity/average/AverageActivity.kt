@@ -1,38 +1,30 @@
-package br.com.stv.appbolsa.ui.activity.buy
+package br.com.stv.appbolsa.ui.activity.average
 
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.widget.DatePicker
 import android.widget.Toast
 import br.com.stv.appbolsa.R
-import br.com.stv.appbolsa.extension.formatForBrazilianCurrency
 import br.com.stv.appbolsa.extension.toSimpleString
 import br.com.stv.appbolsa.utils.DatePickerFragmentUtils
-import kotlinx.android.synthetic.main.activity_buy.*
+import kotlinx.android.synthetic.main.activity_avarege.*
 import java.util.*
 
+class AverageActivity  : AppCompatActivity(), AverageContract.View, DatePickerDialog.OnDateSetListener {
 
-// https://www.journaldev.com/14748/android-textinputlayout-example
-class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDateSetListener {
-
-
-    private val buyPresenter: BuyContract.Presenter by lazy {
-        BuyPresenter(this, this)
+    private val averagePresenter: AverageContract.Presenter by lazy {
+        AveragePresenter(this, this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_buy)
+        setContentView(R.layout.activity_avarege)
 
         configActionBar()
 
         configButtonConfirm()
-
-        configNote()
 
         configStock()
 
@@ -42,14 +34,12 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
 
         configCustPerStock()
 
-        configRates()
-
     }
 
     private fun configActionBar() {
         title = getString(R.string.title)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
-        getSupportActionBar()?.subtitle = getString(R.string.buy_subtitle)
+        getSupportActionBar()?.subtitle = getString(R.string.avg_title)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -62,29 +52,15 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
 
     private fun configButtonConfirm() {
         btn_confirm.setOnClickListener {
-            buyPresenter.add(
-                    et_nota.text.toString(),
+            averagePresenter.add(
                     et_stock.text.toString(),
                     edt_amount.text.toString(),
                     edt_cust.text.toString(),
-                    edt_rates.text.toString(),
                     et_date_buy.text.toString())
-
-            this.showSucessAlert(this, "Inclido com sucesso.") {
-                this.finish()
-            }
+            
         }
     }
 
-    private fun configNote() {
-        et_nota.filters = arrayOf<InputFilter>(InputFilter.AllCaps())
-        et_nota.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                input_layout_nota.error = null
-                input_layout_nota.isErrorEnabled = false
-            }
-        }
-    }
 
     private fun configStock() {
         et_stock.filters = arrayOf<InputFilter>(InputFilter.AllCaps())
@@ -112,16 +88,6 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
     }
 
     private fun configAmount() {
-        edt_amount.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable?) {
-                calculateStockAverage()
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        })
 
         edt_amount.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
@@ -133,17 +99,6 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
 
     private fun configCustPerStock() {
 
-        edt_cust.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable?) {
-                calculateStockAverage()
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        })
-
         edt_cust.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 input_layout_price_stock.error = null
@@ -152,32 +107,9 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
         }
     }
 
-    private fun configRates() {
-        edt_rates.addTextChangedListener(object : TextWatcher {
-
-            override fun afterTextChanged(s: Editable?) {
-                calculateStockAverage()
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-        })
-
-        edt_rates.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                input_layout_rates.error = null
-                input_layout_rates.isErrorEnabled = false
-            }
-        }
-    }
     //endregion
 
     //region BuyContract.View
-
-    override fun noteRequired() {
-        input_layout_nota.error = getString(R.string.error_field_required)
-    }
 
     override fun stockRequired() {
         input_layout_stock.error = getString(R.string.error_field_required)
@@ -194,18 +126,12 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
 
     }
 
-    override fun ratesRequired() {
-        input_layout_rates.error = getString(R.string.error_field_required)
-
-    }
-
     override fun custPerStockRequired() {
         input_layout_price_stock.error = getString(R.string.error_field_required)
     }
 
-    override fun stockAverage(buyData: BuyData) {
-        tv_averagePerStock.text = buyData.avarageOperation.formatForBrazilianCurrency()
-        tv_custOperationStock.text = buyData.custOperation.formatForBrazilianCurrency()
+    override fun stockAlreadyExist() {
+        this.showErrorAlert(this, "Ops, não é possível incluir uma média para Ações que já existam.\nFavor incluir uma compra ou venda.")
     }
 
     override fun printError(message: String) {
@@ -213,16 +139,12 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun buyInserted(stock: String) {
-        this.showSucessAlert(this, "Ação: ${stock}.\nComprada com sucesso") {
+    override fun AvaregeInserted(stock: String) {
+        this.showSucessAlert(this, "Ação: ${stock}.\nIncluída com sucesso") {
             this.finish()
         }
     }
     //endregion
-
-    private fun calculateStockAverage() {
-        buyPresenter.calculateStockAverage(edt_amount.text.toString(), edt_cust.text.toString(), edt_rates.text.toString())
-    }
 
     //region DatePickerDialog.OnDateSetListener
 

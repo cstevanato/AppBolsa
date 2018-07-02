@@ -18,14 +18,14 @@ class CalculationUtils {
      * Calculo média total de compra
      */
     fun stockAverageBuyTotal(summaryStockAverage: BigDecimal, summaryAmount: Int,
-                             buyStockAvarege: BigDecimal, buyStockAmount: Int): BigDecimal {
+                             buyStockAverage: BigDecimal, buyStockAmount: Int): BigDecimal {
         val totalAmount = summaryAmount + buyStockAmount
         return if (totalAmount == 0) {
             BigDecimal.ZERO
         } else {
             summaryStockAverage
                     .multiply(summaryAmount.toBigDecimal())
-                    .plus(buyStockAvarege.multiply(buyStockAmount.toBigDecimal()))
+                    .plus(buyStockAverage.multiply(buyStockAmount.toBigDecimal()))
                     .divide(totalAmount.toBigDecimal(), 3)
         }
     }

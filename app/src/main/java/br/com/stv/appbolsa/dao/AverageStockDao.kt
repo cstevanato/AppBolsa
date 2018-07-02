@@ -1,5 +1,6 @@
 package br.com.stv.appbolsa.dao
 
+import br.com.stv.appbolsa.dao.api.ISummaryStock
 import br.com.stv.appbolsa.model.SummaryStock
 import br.com.stv.appbolsa.model.Stock
 import io.realm.Realm

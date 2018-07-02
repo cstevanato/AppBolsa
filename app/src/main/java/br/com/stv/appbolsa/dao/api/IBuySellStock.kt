@@ -1,4 +1,4 @@
-package br.com.stv.appbolsa.dao
+package br.com.stv.appbolsa.dao.api
 
 import br.com.stv.appbolsa.model.Stock
 import java.math.BigDecimal
@@ -11,9 +11,9 @@ interface IBuySellStock {
     var amount: Int
     var cust: BigDecimal
     var rates: BigDecimal
-    var averagePerStock: BigDecimal
+    var avarageOperation: BigDecimal
     var custOperation: BigDecimal
-    var totalAveragePerStock: BigDecimal
-    var totalAmountStock: Int
+    var averageTotal: BigDecimal
+    var amountTotal: Int
     var updateDate: Date
 }

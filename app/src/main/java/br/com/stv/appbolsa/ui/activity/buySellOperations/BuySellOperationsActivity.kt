@@ -79,9 +79,10 @@ class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract
         tv_averege.text = "Média: ${summaryStock?.average?.toBigDecimal()?.formatForBrazilianCurrency()}"
     }
 
-    override fun questionDeleteStockGreaterOne(amountDelete: Int, idStock: Long, stock: String?) {
-        this.showQuestion(this, getString(R.string.bso_msn_delete_more_stock, "xxxxx"),
+    override fun questionDeleteStockGreaterOne(amountDelete: Int, idStock: Long, stock: String) {
+        this.showQuestion(this, getString(R.string.bso_msn_delete_more_stock, stock),
                 {
+                    bsoPresenter.deleteOperations(idStock, stock)
                     Toast.makeText(this@BuySellOperationsActivity, "Apagando Registro",
                             Toast.LENGTH_LONG)
                 } ,
@@ -91,9 +92,10 @@ class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract
                 })
     }
 
-    override fun questionDeleteStockEqualOne(idStock: Long, stock: String?) {
+    override fun questionDeleteStockEqualOne(idStock: Long, stock: String) {
         this.showQuestion(this, "Confirma \"Exclusão\"?",
                 {
+                    bsoPresenter.deleteOperations(idStock, stock)
                     Toast.makeText(this@BuySellOperationsActivity, "Apagando Registro",
                             Toast.LENGTH_LONG)
                 } ,

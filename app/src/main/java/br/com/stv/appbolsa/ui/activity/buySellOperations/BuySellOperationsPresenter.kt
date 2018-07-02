@@ -3,27 +3,37 @@ package br.com.stv.appbolsa.ui.activity.buySellOperations
 import android.content.Context
 import br.com.stv.appbolsa.dao.BuySellStockDao
 import br.com.stv.appbolsa.dao.SummaryStockDao
+import com.crashlytics.android.Crashlytics
 
 
 class BuySellOperationsPresenter(private val context: Context,
                                  private val bsoView: BuySellOperationsContract.View) :
         BuySellOperationsContract.Presenter {
 
+
     val buySellStockDao = BuySellStockDao()
     val summaryStockDao = SummaryStockDao()
 
     override fun deleteOperationsQuestion(idStock: Long, stock: String?) {
-        // 1 - Obter quantidade de regtistros deletados
-        // 2 - se > 1 pergunta para o usuário com problema que pode ocorrer
-        // 3 - se = 1 pergunta de confirmação
+        stock?.let {
+            val amountDelete: Int = buySellStockDao.amountDeleted(idStock, stock)
 
-        val amountDelete: Int = buySellStockDao.amountDeleted(idStock, stock)
+            when (amountDelete) {
+                0 -> return
+                1 -> bsoView.questionDeleteStockEqualOne(idStock, stock)
+                else -> bsoView.questionDeleteStockGreaterOne(amountDelete, idStock, stock)
+            }
+        }
+    }
 
-        if (amountDelete == 1) {
-            // erase records greater than 1
-            bsoView.questionDeleteStockGreaterOne(amountDelete, idStock, stock)
-        } else {
-            bsoView.questionDeleteStockEqualOne(idStock, stock)
+    override fun deleteOperations(idStock: Long, stock: String) {
+        try {
+            buySellStockDao.delete(idStock, stock)
+            bsoView.showStocks(buySellStockDao.getStocksByStockOrderDesc(stock))
+            bsoView.showSummaryStock(summaryStockDao.getSummaryStockByStock(stock))
+        } catch (e: Exception) {
+            Crashlytics.logException(e)
+            bsoView.printError("Não foi possível excluir o(a) registro(s).")
         }
 
     }

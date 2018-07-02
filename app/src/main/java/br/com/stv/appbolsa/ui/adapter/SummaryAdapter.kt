@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import br.com.stv.appbolsa.R
-import br.com.stv.appbolsa.dao.ISummaryStock
+import br.com.stv.appbolsa.dao.api.ISummaryStock
 import br.com.stv.appbolsa.extension.formatForBrazilianCurrency
 import kotlinx.android.synthetic.main.summary_item_detail.view.*
 import android.support.v7.view.menu.MenuPopupHelper

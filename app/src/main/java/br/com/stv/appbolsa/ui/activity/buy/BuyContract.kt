@@ -28,6 +28,7 @@ interface BuyContract {
         fun ratesRequired()
         fun custPerStockRequired()
         fun stockAverage(buyData: BuyData)
+        fun buyInserted(stock: String)
     }
 
 }

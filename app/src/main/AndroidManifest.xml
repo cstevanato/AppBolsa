@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.stv.appbolsa">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".AppBolsaApplication"
         android:allowBackup="true"
@@ -20,9 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.sell.SellActivity" />
-        <activity android:name=".ui.activity.buy.BuyActivity" />
-        <activity android:name=".ui.activity.buySellOperations.BuySellOperationsActivity"></activity>
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="91e801b1d1fbf45b72bd08a28092ab355331d8f3" />
+
+        <activity android:name=".ui.activity.sell.SellActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.buy.BuyActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.buySellOperations.BuySellOperationsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.average.AverageActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

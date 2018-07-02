@@ -16,7 +16,7 @@ class SeparatorDecoration(private val context: Context) : RecyclerView.ItemDecor
         divider = context.getResources().getDrawable(R.drawable.line_divider, null);
     }
 
-    override fun onDrawOver(c: Canvas?, parent: RecyclerView?, state: RecyclerView.State?) {
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         drawVertical(c!!, parent!!, state!!)
 
     }
@@ -36,7 +36,7 @@ class SeparatorDecoration(private val context: Context) : RecyclerView.ItemDecor
         }
     }
 
-    override fun getItemOffsets(outRect: Rect?, view: View?, parent: RecyclerView?, state: RecyclerView.State?) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         outRect?.set(0, 0, 0, divider.intrinsicHeight)
     }
 }

@@ -12,13 +12,14 @@ interface BuySellOperationsContract {
         fun getBuySellList(stock: String)
         fun getSummaryStock(stock: String)
         fun deleteOperationsQuestion(id: Long, stock: String?)
+        fun deleteOperations(idStock: Long, stock: String)
     }
 
     interface View: BaseView<Presenter> {
         fun showStocks(stocksByStock: List<BuySell>?)
         fun showSummaryStock(summaryStock: SummaryStock?)
-        fun questionDeleteStockGreaterOne(amountDelete: Int, idStock: Long, stock: String?)
-        fun questionDeleteStockEqualOne(idStock: Long, stock: String?)
+        fun questionDeleteStockGreaterOne(amountDelete: Int, idStock: Long, stock: String)
+        fun questionDeleteStockEqualOne(idStock: Long, stock: String)
     }
 
 }

@@ -15,8 +15,9 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import br.com.stv.appbolsa.R
-import br.com.stv.appbolsa.dao.ISummaryStock
+import br.com.stv.appbolsa.dao.api.ISummaryStock
 import br.com.stv.appbolsa.ui.SeparatorDecoration
+import br.com.stv.appbolsa.ui.activity.average.AverageActivity
 import br.com.stv.appbolsa.ui.activity.buy.BuyActivity
 import br.com.stv.appbolsa.ui.activity.buySellOperations.BuySellOperationsActivity
 import br.com.stv.appbolsa.ui.activity.sell.SellActivity
@@ -24,6 +25,7 @@ import br.com.stv.appbolsa.ui.adapter.SummaryAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import com.crashlytics.android.Crashlytics
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -57,6 +59,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
 
+
+
     }
 
     override fun onResume() {
@@ -74,7 +78,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
+        //menuInflater.inflate(R.menu.main, menu)
         return true
     }
 
@@ -88,9 +92,27 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    private fun logUser() {
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+//        Crashlytics.setUserIdentifier("12345")
+//        Crashlytics.setUserEmail("user@fabric.io")
+//        Crashlytics.setUserName("Test User")
+
+    }
+
+    fun forceCrash() {
+        throw RuntimeException("This is a crash")
+    }
+
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
+            R.id.nav_average -> {
+                val intent = Intent(this, AverageActivity::class.java)
+                startActivity(intent)
+            }
             R.id.nav_buy -> {
                 val intent = Intent(this, BuyActivity::class.java)
                 startActivity(intent)

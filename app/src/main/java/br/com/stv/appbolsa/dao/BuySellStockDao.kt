@@ -1,13 +1,13 @@
 package br.com.stv.appbolsa.dao
 
 import br.com.stv.appbolsa.TypeActionStock
+import br.com.stv.appbolsa.dao.api.IBuySellStock
 import br.com.stv.appbolsa.model.BuySell
 import br.com.stv.appbolsa.model.Stock
 import br.com.stv.appbolsa.model.SummaryStock
 import br.com.stv.appbolsa.utils.CalculationUtils
 import io.realm.Realm
 import io.realm.Sort
-
 
 class BuySellStockDao {
 
@@ -39,7 +39,7 @@ class BuySellStockDao {
             buySellStock.amount = averageStock.amount
             buySellStock.cust = averageStock.cust.toDouble()
             buySellStock.rates = averageStock.rates.toDouble()
-            buySellStock.averagePerStock = averageStock.averagePerStock.toDouble()
+            buySellStock.averagePerStock = averageStock.avarageOperation.toDouble()
             buySellStock.custOperation = averageStock.custOperation.toDouble()
             buySellStock.typeAction = TypeActionStock.BUY.value
             buySellStock.updateDate = averageStock.updateDate
@@ -69,7 +69,7 @@ class BuySellStockDao {
             buySellStock.amount = averageStock.amount
             buySellStock.cust = averageStock.cust.toDouble()
             buySellStock.rates = averageStock.rates.toDouble()
-            buySellStock.averagePerStock = averageStock.averagePerStock.toDouble()
+            buySellStock.averagePerStock = averageStock.avarageOperation.toDouble()
             buySellStock.custOperation = averageStock.custOperation.toDouble()
             buySellStock.typeAction = TypeActionStock.SELL.value
             buySellStock.updateDate = averageStock.updateDate
@@ -121,7 +121,7 @@ class BuySellStockDao {
         summaryStock.average = CalculationUtils().stockAverageBuyTotal(
                 summaryStock.average.toBigDecimal(),
                 summaryStock.amount,
-                averageStock.averagePerStock,
+                averageStock.avarageOperation,
                 averageStock.amount).toDouble()
 
         summaryStock.amount += averageStock.amount
@@ -151,8 +151,42 @@ class BuySellStockDao {
         return realm.copyFromRealm(results)
     }
 
-    fun amountDeleted(idStock: Long, stock: String?): Int {
-        return 1
+    fun amountDeleted(idStock: Long, stock: String): Int {
+        return realm.where(BuySell::class.java)
+                .equalTo("stock.stock", stock)
+                .greaterThanOrEqualTo("id", idStock)
+                .findAll()
+                .count()
+    }
+
+    fun delete(idStock: Long, stock: String) {
+        val summaryStockByStock = SummaryStockDao().getSummaryStockByStock(stock)
+        val buySellResults = realm.where(BuySell::class.java)
+                .equalTo("stock.stock", stock)
+                .greaterThanOrEqualTo("id", idStock)
+                .findAll()
+
+        realm.beginTransaction()
+        buySellResults.deleteAllFromRealm()
+
+        val max = realm.where(BuySell::class.java).equalTo("stock.stock", stock).max("id")
+        max?.let {
+            val buySell = realm.where(BuySell::class.java).equalTo("id", max.toLong()).findFirst()
+
+            buySell?.let {
+                summaryStockByStock?.let {
+                    it.amount = buySell.totalAmountStock
+                    it.average = buySell.totalAveragePerStock
+                }
+            }
+        } ?: run {
+            summaryStockByStock?.let {
+                it.amount = 0
+                it.average = 0.0
+            }
+        }
+
+        realm.commitTransaction()
     }
 
 }

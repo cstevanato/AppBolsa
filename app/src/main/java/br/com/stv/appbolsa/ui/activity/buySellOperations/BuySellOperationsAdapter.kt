@@ -7,7 +7,6 @@ import android.support.v7.view.menu.MenuPopupHelper
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import br.com.stv.appbolsa.R
-import br.com.stv.appbolsa.dao.ISummaryStock
 import br.com.stv.appbolsa.extension.formatForBrazilianCurrency
 import br.com.stv.appbolsa.extension.toSimpleString
 import br.com.stv.appbolsa.model.BuySell

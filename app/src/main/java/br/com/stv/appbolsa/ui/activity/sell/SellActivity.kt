@@ -71,9 +71,6 @@ class SellActivity : AppCompatActivity(), SellContract.View, DatePickerDialog.On
                     edt_rates.text.toString(),
                     et_date_buy.text.toString())
 
-            this.showSucessAlert(this, "Inclido com sucesso.") {
-                this.finish()
-            }
         }
     }
 
@@ -205,13 +202,19 @@ class SellActivity : AppCompatActivity(), SellContract.View, DatePickerDialog.On
     }
 
     override fun stockAverage(buyData: BuyData) {
-        tv_averagePerStock.text = buyData.averagePerStock.formatForBrazilianCurrency()
+        tv_averagePerStock.text = buyData.avarageOperation.formatForBrazilianCurrency()
         tv_custOperationStock.text = buyData.custOperation.formatForBrazilianCurrency()
     }
 
     override fun printError(message: String) {
         this.showErrorAlert(this, message)
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun sellInserted(stock: String) {
+        this.showSucessAlert(this, "Ação: ${stock}.\nVendida com sucesso") {
+            this.finish()
+        }
     }
 
 
