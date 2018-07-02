@@ -210,7 +210,6 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
 
     override fun printError(message: String) {
         this.showErrorAlert(this, message)
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun buyInserted(stock: String) {

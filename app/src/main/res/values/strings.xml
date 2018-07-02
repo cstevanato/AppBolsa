@@ -11,9 +11,9 @@
     <string name="title">Ação</string>
 
     //Menu
-    <string name="menu_title_detalhar">Detalhar</string>
+    <string name="menu_title_detalhar">Detalhar Eventos</string>
     <string name="menu_title_delete">Excluir</string>
-    <string name="menu_title_delete_card">Excluir Card</string>
+    <string name="menu_title_delete_card">Excluir Card (Feature)</string>
 
     //Main
     <string name="title_events_list">Listar Eventos</string>

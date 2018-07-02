@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import com.crashlytics.android.Crashlytics
+import org.jetbrains.anko.email
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
@@ -121,6 +122,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, SellActivity::class.java)
                 startActivity(intent)
             }
+            R.id.nav_doubt -> {
+                email("cstevanato@gmail.com",
+                        "Investidor Total", "Duvida: ")
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
@@ -156,7 +161,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //endregion
 
     override fun printError(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.showErrorAlert(this, message)
     }
 
 }

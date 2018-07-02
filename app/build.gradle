@@ -45,6 +45,8 @@ dependencies {
     implementation 'com.github.cstevanato:Components:1.0.4'
     implementation 'com.satsuware.lib:usefulviews:2.3.6'
 
+    implementation 'org.jetbrains.anko:anko-commons:0.10.4'
+
     implementation 'com.google.firebase:firebase-core:16.0.1'
 
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {

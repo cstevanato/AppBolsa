@@ -50,7 +50,7 @@ class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract
     //region BuySellOperationsContract.View
 
     override fun printError(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.showErrorAlert(this, message)
     }
 
     override fun showStocks(stocksByStock: List<BuySell>?) {

@@ -136,7 +136,6 @@ class AverageActivity  : AppCompatActivity(), AverageContract.View, DatePickerDi
 
     override fun printError(message: String) {
         this.showErrorAlert(this, message)
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun AvaregeInserted(stock: String) {

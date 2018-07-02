@@ -208,7 +208,6 @@ class SellActivity : AppCompatActivity(), SellContract.View, DatePickerDialog.On
 
     override fun printError(message: String) {
         this.showErrorAlert(this, message)
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun sellInserted(stock: String) {
