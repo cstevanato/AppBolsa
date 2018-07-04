@@ -70,9 +70,6 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
                     edt_rates.text.toString(),
                     et_date_buy.text.toString())
 
-            this.showSucessAlert(this, "Inclido com sucesso.") {
-                this.finish()
-            }
         }
     }
 

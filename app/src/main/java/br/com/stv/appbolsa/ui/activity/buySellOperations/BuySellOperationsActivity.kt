@@ -1,8 +1,13 @@
 package br.com.stv.appbolsa.ui.activity.buySellOperations
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.ContextMenu
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import br.com.stv.appbolsa.R
@@ -11,6 +16,7 @@ import br.com.stv.appbolsa.model.BuySell
 import br.com.stv.appbolsa.model.SummaryStock
 import br.com.stv.appbolsa.ui.SeparatorDecoration
 import kotlinx.android.synthetic.main.activity_buy_sell_operations.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract.View {
 
@@ -52,6 +58,7 @@ class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract
     override fun printError(message: String) {
         this.showErrorAlert(this, message)
     }
+    var buySellStock: BuySell? = null
 
     override fun showStocks(stocksByStock: List<BuySell>?) {
         rv_buySellStocks.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -61,8 +68,11 @@ class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract
         stocksByStock?.let {
             rv_buySellStocks.adapter = BuySellOperationsAdapter(this, stocksByStock)
             { buySell ->
-                Toast.makeText(this@BuySellOperationsActivity, buySell.stock?.stock, Toast.LENGTH_SHORT).show()
-                bsoPresenter.deleteOperationsQuestion(buySell.id, buySell.stock?.stock )
+                this.buySellStock = buySell
+            }
+
+            rv_buySellStocks.setOnCreateContextMenuListener { menu: ContextMenu, v: View?, menuInfo: ContextMenu.ContextMenuInfo? ->
+                menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.menu_title_delete))
             }
         }
 
@@ -71,6 +81,14 @@ class BuySellOperationsActivity : AppCompatActivity(), BuySellOperationsContract
 //            if (it.size > 0) tv_message.visibility = View.GONE
 //        }
     }
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        val idDoMenu = item?.itemId
+        if(idDoMenu == 1) {
+            bsoPresenter.deleteOperationsQuestion(buySellStock?.id!!, buySellStock?.stock?.stock )
+        }
+        return super.onContextItemSelected(item)
+    }
+
 
     override fun showSummaryStock(summaryStock: SummaryStock?) {
         tv_code.text = summaryStock?.stock?.stock

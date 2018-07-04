@@ -1,4 +1,4 @@
-package br.com.stv.appbolsa.ui.adapter
+package br.com.stv.appbolsa.ui.activity.main
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,8 +7,6 @@ import br.com.stv.appbolsa.R
 import br.com.stv.appbolsa.dao.api.ISummaryStock
 import br.com.stv.appbolsa.extension.formatForBrazilianCurrency
 import kotlinx.android.synthetic.main.summary_item_detail.view.*
-import android.support.v7.view.menu.MenuPopupHelper
-import android.support.v7.view.menu.MenuBuilder
 import android.view.*
 
 
@@ -37,35 +35,35 @@ class SummaryAdapter(private val context: Context,
 
             amount.text = summary.amount.toString()
             average.text  = summary.average.toBigDecimal().formatForBrazilianCurrency()
-//            itemView.setOnLongClickListener {
-//                delegate(layoutPosition)
-//                false
-//            }
-
-            menu.setOnClickListener {
-                val menuBuilder = MenuBuilder(context)
-                val inflater = MenuInflater(context)
-                inflater.inflate(R.menu.menu_item_summary, menuBuilder)
-                val optionsMenu = MenuPopupHelper(context, menuBuilder, holder.menu)
-                optionsMenu.setForceShowIcon(true)
-
-                // Set Item Click Listener
-                menuBuilder.setCallback(object : MenuBuilder.Callback {
-                    override fun onMenuItemSelected(menu: MenuBuilder, item: MenuItem): Boolean {
-                        when (item.getItemId()) {
-                            R.id.action_lists -> {
-                                delegate(summaryStock[position])
-
-                            }
-                        }
-                        return true
-                    }
-
-                    override fun onMenuModeChange(menu: MenuBuilder) {}
-                })
-
-                optionsMenu.show()
+            itemView.setOnLongClickListener {
+                delegate(summaryStock[position])
+                false
             }
+
+//            menu.setOnClickListener {
+//                val menuBuilder = MenuBuilder(context)
+//                val inflater = MenuInflater(context)
+//                inflater.inflate(R.menu.menu_item_summary, menuBuilder)
+//                val optionsMenu = MenuPopupHelper(context, menuBuilder, holder.menu)
+//                optionsMenu.setForceShowIcon(true)
+//
+//                // Set Item Click Listener
+//                menuBuilder.setCallback(object : MenuBuilder.Callback {
+//                    override fun onMenuItemSelected(menu: MenuBuilder, item: MenuItem): Boolean {
+//                        when (item.getItemId()) {
+//                            R.id.action_lists -> {
+//                                delegate(summaryStock[position])
+//
+//                            }
+//                        }
+//                        return true
+//                    }
+//
+//                    override fun onMenuModeChange(menu: MenuBuilder) {}
+//                })
+//
+//                optionsMenu.show()
+//            }
         }
     }
 
@@ -75,6 +73,6 @@ class SummaryAdapter(private val context: Context,
         val title = itemView.tv_title
         val amount = itemView.tv_amount
         val average = itemView.tv_average
-        val menu = itemView.tv_menu
+        //val menu = itemView.tv_menu
     }
 }

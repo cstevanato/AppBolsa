@@ -14,7 +14,7 @@
         <item
             android:id="@+id/nav_doubt"
             android:icon="@drawable/ic_email_variant_black_48dp"
-            android:title="Dúvidas e-mail" />
+            android:title="Dúvidas" />
     </group>
 
     <item android:title="Ação">

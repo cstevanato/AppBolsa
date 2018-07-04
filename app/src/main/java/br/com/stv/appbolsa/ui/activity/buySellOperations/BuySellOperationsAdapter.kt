@@ -37,31 +37,35 @@ class BuySellOperationsAdapter(private val context: Context,
              amount.text = buySell.amount.toString()
              cust.text = buySell.cust.toBigDecimal().formatForBrazilianCurrency()
              custOperation.text = buySell.custOperation.toBigDecimal().formatForBrazilianCurrency()
-
-            menu.setOnClickListener {
-                val menuBuilder = MenuBuilder(context)
-                val inflater = MenuInflater(context)
-                inflater.inflate(R.menu.menu_item_buy_sell_operations, menuBuilder)
-                val optionsMenu = MenuPopupHelper(context, menuBuilder, holder.menu)
-
-                optionsMenu.setForceShowIcon(true)
-
-                // Set Item Click Listener
-                menuBuilder.setCallback(object : MenuBuilder.Callback {
-                    override fun onMenuItemSelected(menu: MenuBuilder, item: MenuItem): Boolean {
-                        when (item.getItemId()) {
-                            R.id.action_delete -> {
-                                delegate(buySellStocks[position])
-                            }
-                        }
-                        return true
-                    }
-
-                    override fun onMenuModeChange(menu: MenuBuilder) {}
-                })
-
-                optionsMenu.show()
+            itemView.setOnLongClickListener {
+                delegate(buySellStocks[position])
+                false
             }
+
+//            menu.setOnClickListener {
+//                val menuBuilder = MenuBuilder(context)
+//                val inflater = MenuInflater(context)
+//                inflater.inflate(R.menu.menu_item_buy_sell_operations, menuBuilder)
+//                val optionsMenu = MenuPopupHelper(context, menuBuilder, holder.menu)
+//
+//                optionsMenu.setForceShowIcon(true)
+//
+//                // Set Item Click Listener
+//                menuBuilder.setCallback(object : MenuBuilder.Callback {
+//                    override fun onMenuItemSelected(menu: MenuBuilder, item: MenuItem): Boolean {
+//                        when (item.getItemId()) {
+//                            R.id.action_delete -> {
+//                                delegate(buySellStocks[position])
+//                            }
+//                        }
+//                        return true
+//                    }
+//
+//                    override fun onMenuModeChange(menu: MenuBuilder) {}
+//                })
+//
+//                optionsMenu.show()
+//            }
         }
     }
 
@@ -71,7 +75,7 @@ class BuySellOperationsAdapter(private val context: Context,
         val amount = itemView.tv_amount
         val cust = itemView.tv_cust
         val custOperation = itemView.tv_custOperation
-        val menu = itemView.tv_menu
+        //val menu = itemView.tv_menu
 
     }
 }

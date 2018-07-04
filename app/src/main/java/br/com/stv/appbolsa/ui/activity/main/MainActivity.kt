@@ -21,11 +21,9 @@ import br.com.stv.appbolsa.ui.activity.average.AverageActivity
 import br.com.stv.appbolsa.ui.activity.buy.BuyActivity
 import br.com.stv.appbolsa.ui.activity.buySellOperations.BuySellOperationsActivity
 import br.com.stv.appbolsa.ui.activity.sell.SellActivity
-import br.com.stv.appbolsa.ui.adapter.SummaryAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import com.crashlytics.android.Crashlytics
 import org.jetbrains.anko.email
 
 
@@ -59,8 +57,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-
-
 
     }
 
@@ -134,23 +130,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     //region SummaryContract.View
+    var summaryStock: ISummaryStock? = null
 
     override fun showSummaries(summaryList: List<ISummaryStock>) {
-
-
-
         rv_summary.adapter = SummaryAdapter(this, summaryList)
         { summaryStock ->
-            Toast.makeText(this@MainActivity, summaryStock.stock.toString(), Toast.LENGTH_SHORT).show();
-
-            val intent = Intent(this, BuySellOperationsActivity::class.java)
-            intent.putExtra(BuySellOperationsActivity.INTENT_STOCK, summaryStock.stock!!.stock)
-
-            startActivityForResult(intent, 12345)
+            this.summaryStock = summaryStock
         }
 
         rv_summary.setOnCreateContextMenuListener { menu: ContextMenu, v: View?, menuInfo: ContextMenu.ContextMenuInfo? ->
-            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.title_events_list))
+            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.menu_title_detalhar))
+            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.menu_title_delete_card))
         }
 
         summaryList?.let {
@@ -158,6 +148,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        val idDoMenu = item?.itemId
+        if(idDoMenu == 1) {
+            val intent = Intent(this, BuySellOperationsActivity::class.java)
+            intent.putExtra(BuySellOperationsActivity.INTENT_STOCK, this.summaryStock?.stock!!.stock)
+            startActivityForResult(intent, 12345)
+        }
+        return super.onContextItemSelected(item)
+    }
     //endregion
 
     override fun printError(message: String) {
