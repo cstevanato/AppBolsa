@@ -1,7 +1,5 @@
 package br.com.stv.appbolsa.ui.activity.buy
 
-import br.com.stv.appbolsa.dao.IBuySellStock
-import br.com.stv.appbolsa.dao.ISummaryStock
 import br.com.stv.appbolsa.ui.activity.BasePresenter
 import br.com.stv.appbolsa.ui.activity.BaseView
 
@@ -30,6 +28,7 @@ interface BuyContract {
         fun ratesRequired()
         fun custPerStockRequired()
         fun stockAverage(buyData: BuyData)
+        fun buyInserted(stock: String)
     }
 
 }

@@ -8,8 +8,7 @@ import br.com.stv.appbolsa.ui.activity.buy.BuyData
 interface SellContract {
 
     interface Presenter : BasePresenter {
-        fun loadSummaries()
-        fun syncTask()
+
         fun subtract(note: String,
                      stock: String,
                      amount: String,
@@ -35,6 +34,7 @@ interface SellContract {
         fun custPerStockRequired()
         fun stockAverage(buyData: BuyData)
         fun loadStocksForSales(stocksForSales: List<SummaryStock>?)
+        fun sellInserted(stock: String)
     }
 
 }

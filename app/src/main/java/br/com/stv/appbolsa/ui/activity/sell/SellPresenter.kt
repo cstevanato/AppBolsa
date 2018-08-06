@@ -5,18 +5,11 @@ import br.com.stv.appbolsa.dao.BuySellStockDao
 import br.com.stv.appbolsa.extension.toBigDecimalBrazilianCurrency
 import br.com.stv.appbolsa.ui.activity.buy.BuyData
 import br.com.stv.appbolsa.utils.CalculationUtils
+import com.crashlytics.android.Crashlytics
 import java.text.SimpleDateFormat
 
 class SellPresenter(private val context: Context,
                     private val sellView: SellContract.View) : SellContract.Presenter {
-
-    override fun loadSummaries() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun syncTask() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun subtract(note: String, stock: String, amount: String, cust: String, rates: String, updateDate: String) {
         val buyData = BuyData()
@@ -32,10 +25,12 @@ class SellPresenter(private val context: Context,
         if (error) return
 
         try {
-           calculateStockAverage(buyData)
+            calculateStockAverage(buyData)
 
-           BuySellStockDao().subtract(buyData)
+            BuySellStockDao().subtract(buyData)
+            sellView.sellInserted(buyData.stock)
         } catch (e: Exception) {
+            Crashlytics.logException(e)
             e.printStackTrace()
             sellView.printError(e.message!!)
         }
@@ -60,7 +55,7 @@ class SellPresenter(private val context: Context,
     }
 
     override fun loadStocksForSales() {
-       sellView.loadStocksForSales(BuySellStockDao().getStocksForSales())
+        sellView.loadStocksForSales(BuySellStockDao().getStocksForSales())
     }
 
     override fun start() {
@@ -73,8 +68,8 @@ class SellPresenter(private val context: Context,
 
 
     private fun calculateStockAverage(buyData: BuyData) {
-        buyData.custOperation = CalculationUtils().custOperation(buyData.cust, buyData.amount,  buyData.rates)
-        buyData.averagePerStock = CalculationUtils().stockAverage(buyData.custOperation, buyData.amount)
+        buyData.custOperation = CalculationUtils().custOperation(buyData.cust, buyData.amount, buyData.rates)
+        buyData.avarageOperation = CalculationUtils().stockAverage(buyData.custOperation, buyData.amount)
     }
 
     private fun validadeRates(buyData: BuyData, rates: String, error: Boolean): Boolean {

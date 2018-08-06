@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 apply plugin: 'kotlin-android'
 
@@ -6,6 +7,12 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'realm-android'
 apply plugin: 'kotlin-kapt'
+
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
 
 android {
     compileSdkVersion 27
@@ -27,17 +34,24 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation 'com.android.support:cardview-v7:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$API_version"
+    implementation "com.android.support:support-v4:$API_version"
+    implementation "com.android.support:design:$API_version"
+    implementation "com.android.support:cardview-v7:$API_version"
+    implementation "com.android.support:design:$API_version"
 
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.github.cstevanato:Components:1.0.4'
     implementation 'com.satsuware.lib:usefulviews:2.3.6'
 
+    implementation 'org.jetbrains.anko:anko-commons:0.10.4'
+
+    implementation 'com.google.firebase:firebase-core:16.0.1'
+
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
+        transitive = true
+    }
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

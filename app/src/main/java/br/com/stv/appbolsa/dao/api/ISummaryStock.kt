@@ -1,4 +1,4 @@
-package br.com.stv.appbolsa.dao
+package br.com.stv.appbolsa.dao.api
 
 import br.com.stv.appbolsa.model.Stock
 import java.util.*
