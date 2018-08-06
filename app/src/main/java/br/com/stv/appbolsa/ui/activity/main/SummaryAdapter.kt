@@ -6,13 +6,13 @@ import android.support.v7.widget.RecyclerView
 import br.com.stv.appbolsa.R
 import br.com.stv.appbolsa.dao.api.ISummaryStock
 import br.com.stv.appbolsa.extension.formatForBrazilianCurrency
-import kotlinx.android.synthetic.main.summary_item_detail.view.*
+import kotlinx.android.synthetic.main.summary_item_detail_alt.view.*
 import android.view.*
 
 
 class SummaryAdapter(private val context: Context,
                      private val summaryStock: List<ISummaryStock>,
-                     private val delegate: (summaryStock : ISummaryStock) -> Unit) :
+                     private val delegate: (summaryStock: ISummaryStock, position : Int, viewHolder: View) -> Unit) :
         RecyclerView.Adapter<SummaryAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int {
@@ -20,11 +20,10 @@ class SummaryAdapter(private val context: Context,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent?.context).inflate(R.layout.summary_item_detail, parent, false)
+        val v = LayoutInflater.from(parent?.context).inflate(R.layout.summary_item_detail_alt, parent, false)
 
         return ViewHolder(v)
     }
-
 
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -33,10 +32,15 @@ class SummaryAdapter(private val context: Context,
             codeStock.text = summary.stock?.stock
             title.text = summary.stock?.description
 
-            amount.text = summary.amount.toString()
-            average.text  = summary.average.toBigDecimal().formatForBrazilianCurrency()
+            amount.text = "Qtd.: ${summary.amount}"
+            average.text = summary.average.toBigDecimal().formatForBrazilianCurrency()
+
             itemView.setOnLongClickListener {
-                delegate(summaryStock[position])
+                delegate(
+                        summaryStock[position] ,
+                        position,
+                        it
+                )
                 false
             }
 
@@ -67,8 +71,7 @@ class SummaryAdapter(private val context: Context,
         }
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
-    {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val codeStock = itemView.tv_code_stock
         val title = itemView.tv_title
         val amount = itemView.tv_amount

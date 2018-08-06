@@ -103,6 +103,17 @@ class SellActivity : AppCompatActivity(), SellContract.View, DatePickerDialog.On
             DatePickerFragmentUtils().show(supportFragmentManager, "et_date_buy")
         }
 
+        et_date_buy.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable?) {
+                edt_amount.requestFocus()
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+
         et_date_buy.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 DatePickerFragmentUtils().show(supportFragmentManager, "et_date_buy")
