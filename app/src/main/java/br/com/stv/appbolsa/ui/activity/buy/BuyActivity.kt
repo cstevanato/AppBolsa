@@ -7,7 +7,6 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.widget.DatePicker
-import android.widget.Toast
 import br.com.stv.appbolsa.R
 import br.com.stv.appbolsa.extension.formatForBrazilianCurrency
 import br.com.stv.appbolsa.extension.toSimpleString
@@ -99,6 +98,18 @@ class BuyActivity : AppCompatActivity(), BuyContract.View, DatePickerDialog.OnDa
         et_date_buy.setOnClickListener {
             DatePickerFragmentUtils().show(supportFragmentManager, "et_date_buy")
         }
+
+        et_date_buy.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable?) {
+                edt_amount.requestFocus()
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+
         et_date_buy.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 DatePickerFragmentUtils().show(supportFragmentManager, "et_date_buy")

@@ -1,5 +1,6 @@
 package br.com.stv.appbolsa.ui.activity.main
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -7,13 +8,12 @@ import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.view.menu.MenuBuilder
+import android.support.v7.view.menu.MenuPopupHelper
 import android.support.v7.widget.LinearLayoutManager
-import android.view.ContextMenu
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.support.v7.widget.RecyclerView
+import android.view.*
 import android.widget.LinearLayout
-import android.widget.Toast
 import br.com.stv.appbolsa.R
 import br.com.stv.appbolsa.dao.api.ISummaryStock
 import br.com.stv.appbolsa.ui.SeparatorDecoration
@@ -89,20 +89,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun logUser() {
-        // TODO: Use the current user's information
-        // You can call any combination of these three methods
-//        Crashlytics.setUserIdentifier("12345")
-//        Crashlytics.setUserEmail("user@fabric.io")
-//        Crashlytics.setUserName("Test User")
-
-    }
-
-    fun forceCrash() {
-        throw RuntimeException("This is a crash")
-    }
-
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
@@ -130,34 +116,55 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     //region SummaryContract.View
-    var summaryStock: ISummaryStock? = null
 
     override fun showSummaries(summaryList: List<ISummaryStock>) {
         rv_summary.adapter = SummaryAdapter(this, summaryList)
-        { summaryStock ->
-            this.summaryStock = summaryStock
+        { summaryStock, position, viewHolder ->
+            summaryDatailsPopupMenu(position, summaryStock, viewHolder)
         }
 
-        rv_summary.setOnCreateContextMenuListener { menu: ContextMenu, v: View?, menuInfo: ContextMenu.ContextMenuInfo? ->
-            menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.menu_title_detalhar))
-            menu.add(Menu.NONE, 2, Menu.NONE, getString(R.string.menu_title_delete_card))
-        }
 
-        summaryList?.let {
+        summaryList.let {
             if (it.size > 0) tv_message.visibility = View.GONE
         }
     }
 
-    override fun onContextItemSelected(item: MenuItem?): Boolean {
-        val idDoMenu = item?.itemId
-        if(idDoMenu == 1) {
-            val intent = Intent(this, BuySellOperationsActivity::class.java)
-            intent.putExtra(BuySellOperationsActivity.INTENT_STOCK, this.summaryStock?.stock!!.stock)
-            startActivityForResult(intent, 12345)
-        }
-        return super.onContextItemSelected(item)
-    }
     //endregion
+
+    @SuppressLint("RestrictedApi")
+    private fun summaryDatailsPopupMenu(position: Int, summaryStock: ISummaryStock, viewHolder: View) {
+        val menuBuilder = MenuBuilder(this@MainActivity)
+        val inflater = MenuInflater(this@MainActivity)
+        inflater.inflate(R.menu.menu_item_summary, menuBuilder)
+        val optionsMenu = MenuPopupHelper(this@MainActivity, menuBuilder, viewHolder)
+
+
+        optionsMenu.setForceShowIcon(true)
+
+        // Set Item Click Listener
+        menuBuilder.setCallback(object : MenuBuilder.Callback {
+            override fun onMenuItemSelected(menu: MenuBuilder, item: MenuItem): Boolean {
+                when (item.getItemId()) {
+                    R.id.action_lists -> {
+                        buySellOperationsActivityStart(summaryStock)
+                    }
+                }
+                return true
+            }
+
+            override fun onMenuModeChange(menu: MenuBuilder) {}
+        })
+
+        //optionsMenu.tryShow(viewHolder.pivotX.toInt(), viewHolder.pivotY.toInt())
+        optionsMenu.tryShow(viewHolder.pivotX.toInt(), viewHolder.pivotY.toInt() * -1)
+    }
+
+    private fun buySellOperationsActivityStart(summaryStock: ISummaryStock) {
+        val intent = Intent(this, BuySellOperationsActivity::class.java)
+        intent.putExtra(BuySellOperationsActivity.INTENT_STOCK, summaryStock?.stock!!.stock)
+        startActivityForResult(intent, 12345)
+    }
+
 
     override fun printError(message: String) {
         this.showErrorAlert(this, message)
